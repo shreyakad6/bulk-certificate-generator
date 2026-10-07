@@ -1,0 +1,18 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bulk_certificate_generator_api
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_NAME=Bulk Certificate Generator API
+      - APP_ENV=production
+      - DEBUG=false
+      - DATABASE_URL=sqlite:////app/certificates.db
+      - GENERATED_FILES_DIR=/app/generated
+      - MAX_RECIPIENTS_PER_JOB=1000
+    volumes:
+      - ./generated:/app/generated
+    restart: unless-stopped
